@@ -89,7 +89,7 @@ if( Meteor.isClient ) {
             return {
                 insertElement: function(node, next, done) {
                     var $node = $(node);
-
+                    console.log('insert');
                     $node
                         .css('transform', 'translateX(' + fromX + ')')
                         .insertBefore(next)
@@ -107,6 +107,7 @@ if( Meteor.isClient ) {
                 },
                 removeElement: function(node, done) {
                     var $node = $(node);
+                    console.log('remove');
 
                     $node
                         .velocity({
