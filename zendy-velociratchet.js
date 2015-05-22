@@ -142,4 +142,16 @@ if( Meteor.isClient ) {
             }
         }
     });
+
+    Template.body.onRendered(function() {
+        var device = null;
+
+        if (/iPad|iPhone/.test(navigator.userAgent))
+            device = 'ios';
+        else if (/Android/.test(navigator.userAgent))
+            device = 'android';
+        if (device) {
+            document.body.classList.add(device);
+        }
+    });
 }
