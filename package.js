@@ -7,9 +7,12 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom('1.0.2.1');
-    api.use(['iron:router@1.0.7','percolate:momentum-iron-router@0.7.0', 'percolate:momentum@0.7.2', 'spacebars', 'templating'], 'client');
+    api.use(['less', 'iron:router@1.0.7','percolate:momentum-iron-router@0.7.0', 'percolate:momentum@0.7.2', 'spacebars', 'templating'], 'client');
     api.addFiles('zendy-velociratchet.js');
+    api.addFiles('js/ratchet.js', 'client');
     api.addFiles('css/ratchet.css','client');
+    api.addFiles('css/ratchet-theme-ios.less','client');
+    api.addFiles('css/ratchet-theme-android.less','client');
     api.addFiles('fonts/ratchicons.eot','client');
     api.addFiles('fonts/ratchicons.svg','client');
     api.addFiles('fonts/ratchicons.ttf','client');
@@ -21,4 +24,3 @@ Package.onTest(function(api) {
     api.use('tinytest');
     api.use('zendy:velociratchet');
 });
-

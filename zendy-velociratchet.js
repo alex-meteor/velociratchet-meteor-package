@@ -17,26 +17,26 @@ Velociratchet.clearHistory = function() {
 // Add the following to your Meteor app:
 // Template.myLayoutTemplateName.events(Velociratchet.events);
 Velociratchet.events = {
-    'click': function ( evt ) {
+    'click a': function ( evt ) {
         Velociratchet.transition = 'vratchet-fade';
     },
-    'click .icon-right-nav': function () {
+    'click a.icon-right-nav': function () {
         Velociratchet.addToHistory(Iron.Location.get().path);
         Velociratchet.transition = 'vratchet-right-to-left';
     },
-    'click .navigate-right': function () {
+    'click a.navigate-right': function () {
         Velociratchet.addToHistory(Iron.Location.get().path);
         Velociratchet.transition = 'vratchet-right-to-left';
     },
-    'click .icon-left-nav': function () {
+    'click a.icon-left-nav': function () {
         Velociratchet.removeFromHistory();
         Velociratchet.transition = 'vratchet-left-to-right';
     },
-    'click .navigate-left': function () {
+    'click a.navigate-left': function () {
         Velociratchet.removeFromHistory();
         Velociratchet.transition = 'vratchet-left-to-right';
     },
-    'click .toggle': function( event ){
+    'click a.toggle': function( event ){
         var toggle = $(event.target);
         if( toggle.hasClass( 'active' ) ){
             toggle.removeClass( 'active' );
@@ -44,7 +44,7 @@ Velociratchet.events = {
             toggle.addClass( 'active' );
         }
     },
-    'click .toggle-handle': function( event ){
+    'click a.toggle-handle': function( event ){
         var toggle = $(event.target).parent();
         if( toggle.hasClass( 'active' ) ){
             toggle.removeClass( 'active' );
@@ -100,6 +100,7 @@ if( Meteor.isClient ) {
                             duration: options.duration,
                             queue: false,
                             complete: function() {
+                                console.log('complete');
                                 $node.css('transform', '');
                                 done();
                             }
@@ -130,7 +131,7 @@ if( Meteor.isClient ) {
         return {
             insertElement: function(node, next) {
                 $(node)
-                    .hide()
+                    .css('opacity', '0')
                     .insertBefore(next)
                     .velocity('fadeIn');
             },
@@ -139,6 +140,18 @@ if( Meteor.isClient ) {
                     $(this).remove();
                 });
             }
+        }
+    });
+
+    Template.body.onRendered(function() {
+        var device = null;
+
+        if (/iPad|iPhone/.test(navigator.userAgent))
+            device = 'ios';
+        else if (/Android/.test(navigator.userAgent))
+            device = 'android';
+        if (device) {
+            document.body.classList.add(device);
         }
     });
 }
